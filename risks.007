@@ -270,6 +270,7 @@ my agent = {
 my scenes = [
     {
         name: "Kabul",
+        header: ["K","A","B","U","L"],
         description: [
             "You are outside a casino in a luxurious part of Kabul. In 20 minutes you're supposed to meet Aqela",
             "(last name: unknown, known aliases: Shewolf) and buy some information. All you know about this ",
@@ -309,6 +310,7 @@ my scenes = [
     },
     {
         name: "casino entrance",
+        header: ["E","N","T","R","A","N","C","E"],
         description: [
           "As always the best way is without a doubt to survey a new site from a bar desk. ",
           "You order a drink and must now decide how to spend your time, before you appointment with Aqela."
@@ -335,8 +337,9 @@ my scenes = [
     },
     {
         name: "casino overview",
+        header: ["O","V","E","R","V","I","E","W"],
         description: [
-            "overview"
+            "overview... text text text"
             ],
         image: [
             "    _ (___) _ I_|_ ;;;*;;@;;;;@;;;;;*;;;;;;;;; _|__I___  (___)",
@@ -374,6 +377,7 @@ my scenes = [
     },
     {
         name: "game room",
+        header: ["G","A","M","E"," ", "R", "O", "O", "M"],
         description: [
             "dices"
             ],
@@ -394,6 +398,7 @@ my scenes = [
     },
  {
         name: "secret meeting",
+        header: ["M","E","E","T","I","N","G"],
         description: [
             "Aqela..."
             ],
@@ -420,27 +425,27 @@ func prefix:<H>(n_spaces) {
 func main() {
 
   # intro
- # clear_screen();
- # draw_007_logo();
- # delay(4);
- # clear_screen();
- # draw_game_logo();
- # delay(3);
- # clear_screen();
- # load_heavy_assets();
+  clear_screen();
+  draw_007_logo();
+  delay(4);
+  clear_screen();
+  draw_game_logo();
+  delay(3);
+  clear_screen();
+  load_heavy_assets();
 
   # enquire about name
-  # agent.alias = enquire_about_name();
+  agent.alias = enquire_about_name();
 
   # more intro
- # clear_screen();
- # change_prompt_vert(15);
- # say(H15,"Are you ready? Are you really ready, ", agent.alias, "?");
- # change_prompt_vert(5);
- # msg_here_we_go();
- # change_prompt_vert(30);
- # delay(3);
- # clear_screen();
+  clear_screen();
+  change_prompt_vert(15);
+  say(H15,"Are you ready? Are you really ready, ", agent.alias, "?");
+  change_prompt_vert(5);
+  msg_here_we_go();
+  change_prompt_vert(30);
+  delay(3);
+  clear_screen();
 
   # ENTER THE WORLD OF INTERNATIONAL INTRIGUES:
   enter_room(agent.current_room);
@@ -465,7 +470,8 @@ func enter_room(n) {
     my option_quit = scenes[n].metadata_number_of_options + 1;
 
     say(H25,"-------------------------------------------------------------------------------------------------------");
-    say(H25,"Current scene: ", scenes[n].name);
+    say(H25,"Current scene: ");
+    print_header(scenes[n].header);
     say(H25,"-------------------------------------------------------------------------------------------------------");
     change_prompt_vert(3);
     draw_image(scenes[n].image);
@@ -546,7 +552,7 @@ func aside_function(special_scene) {
 
         agent.time_spent = agent.time_spent + 5;
 
-        say(H25,"Each round cost 100$. Do you want to play or leave?");
+        boxify(["Each round cost 100$. Do you want to play or leave?"],4);
         change_prompt_vert(2);
         say(H25,"1. Play");
         say(H25,"2. Leave");
@@ -562,6 +568,7 @@ func aside_function(special_scene) {
             my dice_number2 = seed % 6;
 
             my total_d_num = dice_number1 + dice_number2;
+
             say(H25, "You hit ", dice_number1, " and " , dice_number2 , ": ", total_d_num);
 
             if (total_d_num <= 5) {
@@ -579,7 +586,6 @@ func aside_function(special_scene) {
           else if (agent.cash < 100) {
             say(H25, "Sorry. You can't afford to play!");
           }
-
         }
 
         else if (choice == "2") {
@@ -671,11 +677,11 @@ func delay(approximately_n_seconds) {
 # ------------------------------------------------------------------------------
 func draw_image(img) {
 
-  change_prompt_vert(3);
+  change_prompt_vert(1);
   for (img) -> n {
     say(H45, n);
   }
-  change_prompt_vert(3);
+  change_prompt_vert(1);
 }
 
 # ------------------------------------------------------------------------------
@@ -696,7 +702,7 @@ func print_header(arr_of_letters) {
         header[current_l_n] = l_n;
         current_l_n = current_l_n + 1;
 
-        say(l_n);
+        say(H25,l_n);
     }
 }
 
@@ -709,6 +715,81 @@ func find_index_of_letter(search_term) {
         }
         i = i + 1;
     }
+}
+
+# ------------------------------------------------------------------------------
+func boxify(strings_to_box, w_on_sides) {
+
+    my index = 0;
+    my longest_str_len = 0;
+
+    for(strings_to_box) -> string {
+        my str_len = string.chars();
+        if(str_len > longest_str_len) {
+            longest_str_len = str_len;
+        }
+    }
+
+    my box_w = longest_str_len + w_on_sides;
+
+    say(H25,generate_top(box_w));
+
+    for(strings_to_box) -> print_ln {
+        my ln = "║";
+
+        ln = ln ~generate_w_space_before(w_on_sides);
+        ln = ln ~print_ln;
+        ln = ln ~generate_w_space_after(w_on_sides,print_ln.chars(),longest_str_len);
+        ln = ln ~"║";
+        say(H25,ln);
+    }
+
+    say(H25,generate_bottom(box_w));
+
+}
+
+func generate_top(w) {
+    my top = "╔";
+    my line = "";
+    my counter = 0;
+    while (counter < (w+2)) {
+        line = line ~ "═";
+        counter = counter + 1;
+    }
+    my top_line = ~top ~line ~"╗";
+    return top_line;
+}
+
+func generate_bottom(w) {
+    my top = "╚";
+    my line = "";
+    my counter = 0;
+    while (counter < (w+2)) {
+        line = line ~ "═";
+        counter = counter + 1;
+    }
+    my top_line = ~top ~line ~"╝";
+    return top_line;
+}
+
+func generate_w_space_before(w) {
+    my spaces = w-1;
+    my spaces_ln = "";
+    for(^spaces) {
+        spaces_ln = spaces_ln ~" ";
+    }
+    return spaces_ln;
+}
+
+func generate_w_space_after(w,this,max) {
+
+    my spaces = max - this + (w-1);
+
+    my spaces_ln = "";
+    for(^spaces) {
+        spaces_ln = spaces_ln ~" ";
+    }
+    return spaces_ln;
 }
 
 # ------------------------------------------------------------------------------
