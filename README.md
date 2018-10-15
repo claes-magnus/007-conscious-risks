@@ -1,4 +1,4 @@
 # CONCIOUS RISKS
 
-Experimental game using the programming language 007.
+Text-based game using [007 programming language](https://github.com/masak/007)
 
