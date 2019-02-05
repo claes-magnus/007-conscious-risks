@@ -274,8 +274,8 @@ my scenes = [
         description: [
             "You are outside a casino in a luxurious part of Kabul. In 20 minutes you're supposed to meet Aqela",
             "(last name: unknown, known aliases: Shewolf) and buy some information. All you know about this ",
-            "person is that she made a fortune after the war with Soviet, tradings 'lost' weapons. She holds ",
-            "2 phd. titles and is lethal with the blade."
+            "person is that she made a fortune after the war with the Soviets, trading 'lost' weapons. ",
+            "She holds 2 PhD degrees, and is lethal with a blade."
           ],
         image: [
             "                           ,-.^._                 _",
@@ -312,8 +312,8 @@ my scenes = [
         name: "casino entrance",
         header: ["E","N","T","R","A","N","C","E"],
         description: [
-          "As always the best way is without a doubt to survey a new site from a bar desk. ",
-          "You order a drink and must now decide how to spend your time, before you appointment with Aqela."
+          "As always the best way to survey a new site is without a doubt from the bar. ",
+          "You order a drink and must now decide how to spend your time, before your appointment with Aqela."
           ],
         image: [
             "   . ",
@@ -332,7 +332,7 @@ my scenes = [
         options: [
             {msg: "1. Leave the casino.", room: 0},
             {msg: "2. Take a look around", room: 2},
-            {msg: "3. Play dices", room: 3}
+            {msg: "3. Play dice", room: 3}
             ]
     },
     {
