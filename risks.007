@@ -488,7 +488,7 @@ func enter_room(n) {
 
     say(H25, option_quit, ". Quit");
 
-    my is_choice_valid = True;
+    my is_choice_valid = true;
 
     while(is_game_active != 0) {
         say(H25,"What do you want do? ");
@@ -497,7 +497,7 @@ func enter_room(n) {
         for(^scenes[n].metadata_number_of_options) -> i {
             my i_as_string = ~(i + 1);
             if(choice == i_as_string) {
-                is_choice_valid = True;
+                is_choice_valid = true;
                 seed = seed * 3;
 
                 if(scenes[n].options[i].room != 666) {
@@ -513,7 +513,7 @@ func enter_room(n) {
                 game_over();
             }
         }
-        if(is_choice_valid == False) {
+        if(!is_choice_valid) {
             say(H25,"Agent X, please consider using your intellect. Make an valid choice.");
             seed = seed * 3;
         }
@@ -546,9 +546,9 @@ func aside_function(special_scene) {
 
     say(H25,"CASH: ", agent.cash, "$");
 
-    my is_choice_valid = False;
+    my is_choice_valid = false;
 
-      while(is_choice_valid == False) {
+      while(!is_choice_valid) {
 
         agent.time_spent = agent.time_spent + 5;
 
@@ -593,7 +593,7 @@ func aside_function(special_scene) {
         }
 
       }
-      if(is_choice_valid == False) {
+      if(!is_choice_valid) {
         say(H25,"Agent X, please consider using your intellect. Make a valid choice.");
       }
     say(H25,"-------------------------------------------------------------------------------------------------------");
