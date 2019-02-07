@@ -440,7 +440,7 @@ func main() {
   # more intro
   clear_screen();
   change_prompt_vert(15);
-  say(H15,"Are you ready? Are you really ready, ", agent.alias, "?");
+  say(H 15,"Are you ready? Are you really ready, ", agent.alias, "?");
   change_prompt_vert(5);
   msg_here_we_go();
   change_prompt_vert(30);
@@ -469,30 +469,30 @@ func enter_room(n) {
 
     my option_quit = scenes[n].metadata_number_of_options + 1;
 
-    say(H25,"-------------------------------------------------------------------------------------------------------");
-    say(H25,"Current scene: ");
+    say(H 25,"-------------------------------------------------------------------------------------------------------");
+    say(H 25,"Current scene: ");
     print_header(scenes[n].header);
-    say(H25,"-------------------------------------------------------------------------------------------------------");
+    say(H 25,"-------------------------------------------------------------------------------------------------------");
     change_prompt_vert(3);
     draw_image(scenes[n].image);
 
     for (scenes[n].description) -> line {
-      say(H25,line);
+      say(H 25,line);
     }
 
-    say(H25,"-------------------------------------------------------------------------------------------------------");
+    say(H 25,"-------------------------------------------------------------------------------------------------------");
     for(scenes[n].options) -> option {
-      say(H25,option.msg);
+      say(H 25,option.msg);
     }
-    say(H25,"-------------------------------------------------------------------------------------------------------");
+    say(H 25,"-------------------------------------------------------------------------------------------------------");
 
-    say(H25, option_quit, ". Quit");
+    say(H 25, option_quit, ". Quit");
 
     my is_choice_valid = true;
 
     while(is_game_active != 0) {
-        say(H25,"What do you want do? ");
-        my choice = prompt(H25);
+        say(H 25,"What do you want do? ");
+        my choice = prompt(H 25);
 
         for(^scenes[n].metadata_number_of_options) -> i {
             my i_as_string = ~(i + 1);
@@ -514,7 +514,7 @@ func enter_room(n) {
             }
         }
         if(!is_choice_valid) {
-            say(H25,"Agent X, please consider using your intellect. Make an valid choice.");
+            say(H 25,"Agent X, please consider using your intellect. Make an valid choice.");
             seed = seed * 3;
         }
     }
@@ -539,12 +539,12 @@ func aside_function(special_scene) {
 
     clear_screen();
     change_prompt_vert(40);
-    say(H25,"-------------------------------------------------------------------------------------------------------");
+    say(H 25,"-------------------------------------------------------------------------------------------------------");
     change_prompt_vert(3);
     draw_image(dices);
     change_prompt_vert(3);
 
-    say(H25,"CASH: ", agent.cash, "$");
+    say(H 25,"CASH: ", agent.cash, "$");
 
     my is_choice_valid = false;
 
@@ -554,10 +554,10 @@ func aside_function(special_scene) {
 
         boxify(["Each round cost 100$. Do you want to play or leave?"],4);
         change_prompt_vert(2);
-        say(H25,"1. Play");
-        say(H25,"2. Leave");
+        say(H 25,"1. Play");
+        say(H 25,"2. Leave");
 
-        my choice = prompt(H25);
+        my choice = prompt(H 25);
 
         if (choice == "1") {
 
@@ -569,22 +569,22 @@ func aside_function(special_scene) {
 
             my total_d_num = dice_number1 + dice_number2;
 
-            say(H25, "You hit ", dice_number1, " and " , dice_number2 , ": ", total_d_num);
+            say(H 25, "You hit ", dice_number1, " and " , dice_number2 , ": ", total_d_num);
 
             if (total_d_num <= 5) {
-                say(H25, "Bad luck! You've lost 100$");
+                say(H 25, "Bad luck! You've lost 100$");
                 agent.cash = agent.cash - 100;
             } else if (total_d_num > 5 && total_d_num < 10) {
-                say(H25, "Good... But not good enough! You've lost 100$");
+                say(H 25, "Good... But not good enough! You've lost 100$");
                 agent.cash = agent.cash - 100;
             } else {
-                say(H25, "Nice. You won 100$");
+                say(H 25, "Nice. You won 100$");
                 agent.cash = agent.cash + 100;
             }
           }
 
           else if (agent.cash < 100) {
-            say(H25, "Sorry. You can't afford to play!");
+            say(H 25, "Sorry. You can't afford to play!");
           }
         }
 
@@ -594,16 +594,16 @@ func aside_function(special_scene) {
 
       }
       if(!is_choice_valid) {
-        say(H25,"Agent X, please consider using your intellect. Make a valid choice.");
+        say(H 25,"Agent X, please consider using your intellect. Make a valid choice.");
       }
-    say(H25,"-------------------------------------------------------------------------------------------------------");
+    say(H 25,"-------------------------------------------------------------------------------------------------------");
   }
 }
 
 # ------------------------------------------------------------------------------
 func enquire_about_name() {
-  say(H15,"Your real name is of no importance, but your agent alias is. This is true even though your chosen alias is unique and only");
-  say(H15,"applicable for this one mission.");
+  say(H 15,"Your real name is of no importance, but your agent alias is. This is true even though your chosen alias is unique and only");
+  say(H 15,"applicable for this one mission.");
   say("");
   my alias = prompt("               Enter a name to be used on this mission: ");
   return alias;
@@ -625,7 +625,7 @@ func load_heavy_assets() {
   my time_left = 3;
   my time_display = ["◐","◓","◑","◒"];
 
-  my fake_loader = H75;
+  my fake_loader = H 75;
 
   while init_counter < 20 {
 
@@ -637,11 +637,11 @@ func load_heavy_assets() {
       fake_loader = fake_loader ~ " ░";
     }
 
-    say(H55,time_display[time_right], "  LOADING VERY ADVANCED GRAPHICS AND OTHER ASSETS. PLEASE HOLD... (IT'S WORTH WHILE!) ", time_display[time_left]);
+    say(H 55,time_display[time_right], "  LOADING VERY ADVANCED GRAPHICS AND OTHER ASSETS. PLEASE HOLD... (IT'S WORTH WHILE!) ", time_display[time_left]);
     say("");
     say(fake_loader);
 
-    fake_loader = H75;
+    fake_loader = H 75;
     init_counter = init_counter + 1;
     counter_end = counter_end - 1;
     time_right = time_right + 1;
@@ -679,7 +679,7 @@ func draw_image(img) {
 
   change_prompt_vert(1);
   for (img) -> n {
-    say(H45, n);
+    say(H 45, n);
   }
   change_prompt_vert(1);
 }
@@ -702,7 +702,7 @@ func print_header(arr_of_letters) {
         header[current_l_n] = l_n;
         current_l_n = current_l_n + 1;
 
-        say(H25,l_n);
+        say(H 25,l_n);
     }
 }
 
@@ -732,7 +732,7 @@ func boxify(strings_to_box, w_on_sides) {
 
     my box_w = longest_str_len + w_on_sides;
 
-    say(H25,generate_top(box_w));
+    say(H 25,generate_top(box_w));
 
     for(strings_to_box) -> print_ln {
         my ln = "║";
@@ -741,10 +741,10 @@ func boxify(strings_to_box, w_on_sides) {
         ln = ln ~print_ln;
         ln = ln ~generate_w_space_after(w_on_sides,print_ln.chars(),longest_str_len);
         ln = ln ~"║";
-        say(H25,ln);
+        say(H 25,ln);
     }
 
-    say(H25,generate_bottom(box_w));
+    say(H 25,generate_bottom(box_w));
 
 }
 
@@ -813,7 +813,7 @@ func draw_007_logo() {
 ];
 
   for (lang_logo) -> n {
-    say(H25,n);
+    say(H 25,n);
   }
   change_prompt_vert(20);
 }
@@ -848,7 +848,7 @@ my logo = [
 "8 8888     `88.  8 8888  `Y8888P ,88P' 8 8888     `Y8. `Y8888P ,88P' "
 ];
   for (logo) -> n {
-    say(H20,n);
+    say(H 20,n);
   }
   change_prompt_vert(20);
 }
@@ -867,7 +867,7 @@ func msg_here_we_go() {
     ];
 
     for (msg) -> n {
-    say(H30,n);
+    say(H 30,n);
     }
 }
 
@@ -885,12 +885,12 @@ func game_over() {
 clear_screen();
 change_prompt_vert(30);
 for (msg) -> n {
-  say(H50,n);
+  say(H 50,n);
 }
 change_prompt_vert(4);
-say(H50,"THANK YOU FOR PLAYING!");
+say(H 50,"THANK YOU FOR PLAYING!");
 change_prompt_vert(4);
-say(H50,"Graphics: <https://www.asciiart.eu/>");
-say(H50,"007: <https://github.com/masak/007>");
+say(H 50,"Graphics: <https://www.asciiart.eu/>");
+say(H 50,"007: <https://github.com/masak/007>");
 change_prompt_vert(20);
 }
